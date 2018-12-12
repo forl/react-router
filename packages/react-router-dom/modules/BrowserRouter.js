@@ -6,6 +6,7 @@ import warning from "tiny-warning";
 
 /**
  * The public API for a <Router> that uses HTML5 history.
+ * 对 Router 的简单封装，使用 createBrowserHistory 自动创建 history prop
  */
 class BrowserRouter extends React.Component {
   history = createHistory(this.props);
