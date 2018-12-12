@@ -64,7 +64,8 @@ class Route extends React.Component {
           return (
             <RouterContext.Provider value={props}>
               {children && !isEmptyChildren(children)
-                ? children // ?? 如果 Route 组件有 children 则不管是否 match 都会渲染 children
+                ? children // 如果 Route 组件有 children 则不管是否 match 都会渲染 children，
+                           // 因为 children 有可能是嵌套的 Route
                 : props.match
                   ? component
                     ? React.createElement(component, props)

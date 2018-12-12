@@ -24,12 +24,15 @@ function compilePath(path, options) {
 
 /**
  * Public API for matching a URL pathname to a path.
+ * options 为 Route 组件的 props，此函数这些 props 与 pathname 的匹配逻辑
+ * 若匹配成功会返回一个 match 对象，否则返回 null
  */
 function matchPath(pathname, options = {}) {
   if (typeof options === "string") options = { path: options };
 
   const { path, exact = false, strict = false, sensitive = false } = options;
 
+  // Route 组件允许传入的 path 为数组 
   const paths = [].concat(path);
 
   return paths.reduce((matched, path) => {
@@ -48,6 +51,7 @@ function matchPath(pathname, options = {}) {
 
     if (exact && !isExact) return null;
 
+    // 如果 match 成功，最终会返回如下 match 对象
     return {
       path, // the path used to match
       url: path === "/" && url === "" ? "/" : url, // the matched portion of the URL
