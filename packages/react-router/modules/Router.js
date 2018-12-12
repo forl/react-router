@@ -30,6 +30,7 @@ class Router extends React.Component {
     if (!props.staticContext) {
       this.unlisten = props.history.listen(location => {
         if (this._isMounted) {
+          // 根据 history 的实现，除了 Prompt 驳回导致 revertPop 的情况，每次传入的 location 都是一个新的对象
           this.setState({ location });
         } else {
           this._pendingLocation = location;

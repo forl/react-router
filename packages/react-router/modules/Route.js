@@ -13,6 +13,7 @@ function isEmptyChildren(children) {
 
 /**
  * The public API for matching a single path and rendering.
+ * 这是 React-router 的核心
  */
 class Route extends React.Component {
   render() {
@@ -22,9 +23,12 @@ class Route extends React.Component {
           invariant(context, "You should not use <Route> outside a <Router>");
 
           const location = this.props.location || context.location;
-          const match = this.props.computedMatch
+
+          // 如果不 match，则返回 null
+          const match = this.props.computedMatch // computedMatch 只会出现在 Switch 组件渲染中
             ? this.props.computedMatch // <Switch> already computed the match for us
-            : this.props.path
+            : this.props.path // 如果为 Route 组件传入了 path 属性，则会用 matchPath 计算 match，否则直接
+                              // 使用 Provider 提供的 match 属性
               ? matchPath(location.pathname, this.props)
               : context.match;
 
@@ -60,7 +64,7 @@ class Route extends React.Component {
           return (
             <RouterContext.Provider value={props}>
               {children && !isEmptyChildren(children)
-                ? children
+                ? children // ?? 如果 Route 组件有 children 则不管是否 match 都会渲染 children
                 : props.match
                   ? component
                     ? React.createElement(component, props)
