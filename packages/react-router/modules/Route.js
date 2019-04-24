@@ -32,6 +32,8 @@ class Route extends React.Component {
               ? matchPath(location.pathname, this.props)
               : context.match;
 
+          // 在利用 PureComponent 优化特性时需要注意：只要 Route 组件被 render，其 match prop 就是一个全新的对象
+          // 这会绕过 PureComponent 的浅比较优化
           const props = { ...context, location, match };
 
           let { children, component, render } = this.props;

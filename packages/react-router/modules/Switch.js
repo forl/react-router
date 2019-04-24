@@ -30,6 +30,7 @@ class Switch extends React.Component {
 
               const path = child.props.path || child.props.from;
 
+              // 调用 match 总是会返回一个 全新的 match 对象或者 null
               match = path
                 ? matchPath(location.pathname, { ...child.props, path })
                 : context.match;
